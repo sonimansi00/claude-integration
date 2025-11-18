@@ -1,0 +1,72 @@
+/* Wrapper holding bubble + orb */
+.assistant-floating-wrapper {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  z-index: 5000;
+}
+
+/* Bubble */
+.assistant-bubble {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 14px 18px;
+  font-size: 0.9rem;
+  color: #e6e6e6;
+  border-radius: 18px 18px 18px 6px;
+  backdrop-filter: blur(10px);
+  max-width: 250px;
+  line-height: 1.4;
+  animation: fadeInScale 0.3s ease forwards;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* Fade animation */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: translateY(5px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+}
+
+/* Orb */
+.assistant-orb {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #3fa9f5, #163b5c 60%, #0a1a27 90%);
+  box-shadow: 0 0 28px rgba(106, 185, 255, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.assistant-orb:hover {
+  transform: scale(1.08);
+}
+
+.glow-ring {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.inner-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #ffffff, #8cc8ff);
+  box-shadow: 0 0 12px rgba(255,255,255,0.6);
+}
