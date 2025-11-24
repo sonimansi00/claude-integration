@@ -23,7 +23,7 @@ import "./FloatingWidget.css";
  * Opening: setClosing(false) → setOpen(true) → triggers 'zoomOpen' animation (350ms)
  * Closing: setClosing(true) → wait 350ms → setOpen(false) + setClosing(false)
  */
-export default function FloatingWidget() {
+export default function FloatingWidget({ contextText = "" }) {
   // State: Controls whether the assistant modal is currently visible
   const [open, setOpen] = useState(false);
 
@@ -69,6 +69,29 @@ export default function FloatingWidget() {
     }, 350); // match CSS animation time
   };
 
+  // Generate contextual message based on visible text
+  const generateContextualMessage = () => {
+    if (!contextText) {
+      return "Need help with Mercedes-Benz? Ask me anything!";
+    }
+
+    const lowerContext = contextText.toLowerCase();
+
+    if (lowerContext.includes('electric') || lowerContext.includes('eqs') || lowerContext.includes('battery')) {
+      return "It looks like you want to learn more about electric vehicles? Can I help?";
+    } else if (lowerContext.includes('amg') || lowerContext.includes('performance') || lowerContext.includes('engine')) {
+      return "It looks like you want to learn more about performance? Can I help?";
+    } else if (lowerContext.includes('luxury') || lowerContext.includes('interior') || lowerContext.includes('leather')) {
+      return "It looks like you want to learn more about luxury features? Can I help?";
+    } else if (lowerContext.includes('safety') || lowerContext.includes('assist')) {
+      return "It looks like you want to learn more about safety features? Can I help?";
+    } else if (lowerContext.includes('price') || lowerContext.includes('cost') || lowerContext.includes('finance')) {
+      return "It looks like you want to learn more about pricing? Can I help?";
+    } else {
+      return "Need help with Mercedes-Benz? Ask me anything!";
+    }
+  };
+
   return (
     <>
       {/* Floating bubble + orb wrapper
@@ -77,10 +100,10 @@ export default function FloatingWidget() {
           - Contains contextual help text and animated orb indicator */}
       <div className="assistant-floating-wrapper" onClick={handleOpen}>
         {/* Speech bubble with context-aware message
-            - Currently shows static text about "range"
-            - Future: Will dynamically update based on viewport content tracked by App.js */}
+            - Shows dynamic text based on visible content on the page
+            - Updated based on viewport content tracked by App.js */}
         <div className="assistant-bubble">
-          It looks like you want to learn more about range? Can I help?
+          {generateContextualMessage()}
         </div>
 
         {/* Animated orb with glow effect
@@ -98,11 +121,13 @@ export default function FloatingWidget() {
           - Only mounts when open === true
           - Receives onClose callback for user-initiated closing
           - Receives closing state to trigger exit animation
+          - Receives contextText for context-aware responses
           - Modal overlay covers entire viewport (z-index: 9000) */}
       {open && (
         <AssistantModal
           onClose={handleClose}
           closing={closing}
+          contextText={contextText}
         />
       )}
     </>
