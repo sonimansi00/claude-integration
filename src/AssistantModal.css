@@ -72,6 +72,44 @@
   max-width: 70%;
 }
 
+/* Typing indicator animation for assistant responses */
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  margin: 0 2px;
+  display: inline-block;
+  animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-5px);
+  }
+}
+
 /* Input area */
 .chat-input-bar {
   padding: 16px;

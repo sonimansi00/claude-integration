@@ -370,7 +370,7 @@ function App() {
           </div>
         </footer>
       </main>
-      <FloatingWidget />
+      <FloatingWidget contextText={visibleText} />
     </div>
   );
 }
